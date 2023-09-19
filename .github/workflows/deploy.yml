@@ -16,8 +16,13 @@ jobs:
       - name: Install dependencies
         run: sudo apt update && sudo apt install ssh rsync -y
 
+      - name: Add GitHub to known hosts
+        uses: webfactory/ssh-agent@v0.5.3
+        with:
+          ssh-private-key: ${{ secrets.SSH_PRIVATE_KEY }}
+
       - name: Deploy to VPS
         run: |
-          rsync -r --delete-after $GITHUB_WORKSPACE/ root@3.86.44.89:/var/www/html/
+          rsync -r --delete-after $GITHUB_WORKSPACE/ root@172.31.41.4:/var/www/html/
         env:
           SSH_PRIVATE_KEY: ${{ secrets.SSH_PRIVATE_KEY }}
