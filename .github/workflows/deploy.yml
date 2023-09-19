@@ -1,4 +1,4 @@
-name: Deploy to VPS
+name: Deploy to Server
 
 on:
   push:
@@ -8,21 +8,23 @@ on:
 jobs:
   deploy:
     runs-on: ubuntu-latest
-    
+
     steps:
       - name: Checkout repository
-        uses: actions/checkout@v2
-
-      - name: Install dependencies
-        run: sudo apt update && sudo apt install ssh rsync -y
+        uses: actions/checkout@v3
 
       - name: Add GitHub to known hosts
         uses: webfactory/ssh-agent@v0.5.3
         with:
           ssh-private-key: ${{ secrets.SSH_PRIVATE_KEY }}
 
-      - name: Deploy to VPS
-        run: |
-          scp -r $GITHUB_WORKSPACE/ ubuntu@172.31.41.4:/var/www/html/
-        env:
-          SSH_PRIVATE_KEY: ${{ secrets.SSH_PRIVATE_KEY }}
+      - name: Deploy to server
+  	uses: appleboy/scp-action@v0.1.4
+  	with:
+    	  host: ${{ secrets.HOST }}
+    	  username: ${{ secrets.USERNAME }}
+    	  port: ${{ secrets.PORT }}
+    	  key: ${{ secrets.KEY }}
+    	  source: $GITHUB_WORKSPACE
+    	  target: /var/www/html/
+
