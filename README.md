@@ -11,8 +11,13 @@
 
 **Website link** ---> http://wordpress.ddns.net/
 **Login Page** ---> http://wordpress.ddns.net/wp-admin
+Credentials have been shared in an email Please check once.
 
-Credentials have been shared in an emmail Please check once.
+Shell scripts which I have used to Create the LEMP stack.
+--
+1. setup-server.sh
+2. setup-ssl.sh
+3. setup-wordpress.sh
 
 
 
